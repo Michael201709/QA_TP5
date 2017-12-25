@@ -15,7 +15,7 @@
 
 ## 需求说明书 ##
 
-### [小钉铛QA社区系统](http://www.ynolo.top) ###
+### <a href="http://www.ynolo.top" target="_blank">小钉铛QA社区系统</a> ###
 
 
 文件状态 | 文件标识 | ThinkPHP 5.0.13 小钉铛QA社区系统
