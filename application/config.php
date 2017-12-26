@@ -17,9 +17,15 @@ return [
     // 应用命名空间
     'app_namespace'          => 'app',
     // 应用调试模式
+<<<<<<< HEAD
     'app_debug'              => true,
     // 应用Trace
     'app_trace'              => true,
+=======
+    'app_debug'              => false,
+    // 应用Trace
+    'app_trace'              => false,
+>>>>>>> 65b128f525a7ef748e81504b3361ba036d8eec1a
     // 应用模式状态
     'app_status'             => '',
     // 是否支持多模块
@@ -179,7 +185,10 @@ return [
     'trace'                  => [
         // 内置Html Console 支持扩展
         'type' => 'Html',
+<<<<<<< HEAD
         // 'type' => 'Console',
+=======
+>>>>>>> 65b128f525a7ef748e81504b3361ba036d8eec1a
     ],
 
     // +----------------------------------------------------------------------
