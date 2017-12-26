@@ -9,6 +9,7 @@ use think\Db;
 class User extends Controller
 {
     public function index(){
+        return view('admin@main/user');
         // 原生代码
         // $list = Db::query("select * from lamp_user");
 
