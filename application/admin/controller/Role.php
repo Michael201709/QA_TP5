@@ -3,9 +3,10 @@
 namespace app\admin\controller;
 
 use think\Controller;
+use think\Db;
 use think\Request;
 
-class Main extends Controller
+class Role extends Controller
 {
     /**
      * 显示资源列表
@@ -15,7 +16,11 @@ class Main extends Controller
     public function index()
     {
         //
-        return view('admin@main/index');
+        $arr_role = Db::table('lamp_role')->select();
+        return view('admin@main/role', [
+            'title' => "角色管理",
+            'arr_role' => $arr_role
+        ]);
     }
 
     /**
@@ -31,18 +36,36 @@ class Main extends Controller
     /**
      * 保存新建的资源
      *
-     * @param  \think\Request $request
+     * @param  \think\Request  $request
      * @return \think\Response
      */
     public function save(Request $request)
     {
+         // dump($_POST);
+        $p = $request->post();
+
+        $data = [
+            'name' => $p['name'],
+            'remark' => $p['remark'],
+            'status' => $p['status']
+        ];
+
+        // 执行添加保存
+        $result = Db::name('role')->data($data)->insert();
+
+        // 判断结果
+        if ($result > 0) {
+            return $this->success('添加成功', url('admin/role/index'));
+        } else {
+            return $this->error('添加失败');
+        }
         //
     }
 
     /**
      * 显示指定的资源
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \think\Response
      */
     public function read($id)
@@ -53,7 +76,7 @@ class Main extends Controller
     /**
      * 显示编辑资源表单页.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \think\Response
      */
     public function edit($id)
@@ -64,8 +87,8 @@ class Main extends Controller
     /**
      * 保存更新的资源
      *
-     * @param  \think\Request $request
-     * @param  int $id
+     * @param  \think\Request  $request
+     * @param  int  $id
      * @return \think\Response
      */
     public function update(Request $request, $id)
@@ -76,7 +99,7 @@ class Main extends Controller
     /**
      * 删除指定资源
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \think\Response
      */
     public function delete($id)

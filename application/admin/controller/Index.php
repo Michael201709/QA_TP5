@@ -11,4 +11,5 @@ class Index extends Controller
         // 助手函数
         return view('admin@index/login');
     }
+
 }
