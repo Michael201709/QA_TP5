@@ -46,12 +46,12 @@
                     <th lay-data="{field:'name', width:160, align:'center'}">角色名称</th>
                     <th lay-data="{field:'remark', width:160, align:'center'}">说明</th>
                     <th lay-data="{field:'status', width:80, align:'center', sort: true}">状态</th>
-                    <th lay-data="{field:'wealth', width:200, align:'center'}">拥有权限</th>
+                    <th lay-data="{field:'pname', width:200, align:'center'}">拥有权限</th>
                     <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}">操作</th>
                 </tr>
                 </thead>
                 <tbody>
-                {volist name="arr_role" id="v"}
+                {volist name="arr" id="v"}
                 <tr>
                     <td></td>
                     <td>{$v.id}</td>
@@ -64,7 +64,11 @@
                         {default /} 未知生物
                         {/switch}
                     </td>
-                    <td></td>
+                    <td>
+                        {volist name="v.pname" id="value"}
+                        <span>{$value}</span>
+                        {/volist}
+                    </td>
                 </tr>
                 {/volist}
                 </tbody>

@@ -15,11 +15,24 @@ class Role extends Controller
      */
     public function index()
     {
-        //
-        $arr_role = Db::table('lamp_role')->select();
+        $roles = Db('role')->select();
+        foreach ($roles as $v) {
+            $nids = Db('role_node')->field('nid')->where(array(
+                'rid' => $v['id']
+            ))->select();
+
+            foreach ($nids as $value) {
+                $pnames[] = Db('role')->where(array(
+                    'id' => array('eq', $value['nid']),
+                    'status' => array('eq', 1)
+                ))->value('name');
+            }
+            $v['pname'] = $pnames;
+            $arr[] = $v;
+        }
         return view('admin@main/role', [
             'title' => "角色管理",
-            'arr_role' => $arr_role
+            'arr' => $arr
         ]);
     }
 
@@ -36,12 +49,12 @@ class Role extends Controller
     /**
      * 保存新建的资源
      *
-     * @param  \think\Request  $request
+     * @param  \think\Request $request
      * @return \think\Response
      */
     public function save(Request $request)
     {
-         // dump($_POST);
+        // dump($_POST);
         $p = $request->post();
 
         $data = [
@@ -65,7 +78,7 @@ class Role extends Controller
     /**
      * 显示指定的资源
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \think\Response
      */
     public function read($id)
@@ -76,7 +89,7 @@ class Role extends Controller
     /**
      * 显示编辑资源表单页.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \think\Response
      */
     public function edit($id)
@@ -87,8 +100,8 @@ class Role extends Controller
     /**
      * 保存更新的资源
      *
-     * @param  \think\Request  $request
-     * @param  int  $id
+     * @param  \think\Request $request
+     * @param  int $id
      * @return \think\Response
      */
     public function update(Request $request, $id)
@@ -99,7 +112,7 @@ class Role extends Controller
     /**
      * 删除指定资源
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \think\Response
      */
     public function delete($id)
