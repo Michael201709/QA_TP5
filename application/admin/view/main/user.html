@@ -258,14 +258,17 @@
         //监听工具条
         table.on('tool(demo)', function (obj) {
             var data = obj.data;
-            console.log(data);
+            // console.log(data);
             if (obj.event === 'detail') {
-                layer.alert(
-                    '账户ID：' + data.id
-                    + '<br/>帐户名:' + data.username
-                    + '<br/>真实姓名:' + data.name
-                    + '<br/>性别:' + data.sex
-                );
+                layer.open({
+                    type: 2 //Page层类型
+                    ,area: ['500px', '300px']
+                    ,title: '{$title}'
+                    ,shade: 0.6 //遮罩透明度
+                    ,maxmin: true //允许全屏最小化
+                    ,anim: 1 //0-6的动画形式，-1不开启
+                    ,content: '{:url(\'/admin/user/edit\')}'
+                });
             } else if (obj.event === 'del') {
                 layer.confirm('真的删除行么', function (index) {
                     obj.del();

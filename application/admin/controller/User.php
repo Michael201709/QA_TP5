@@ -2,13 +2,12 @@
 
 namespace app\admin\controller;
 
-use think\Controller;
+
+use app\admin\controller\Base;
 use think\Db;
 use think\Request;
 
-// use think\Request;
-
-class User extends Controller
+class User extends Base
 {
     public function index()
     {
@@ -82,5 +81,16 @@ class User extends Controller
         } else {
             return $this->error('添加失败');
         }
+    }
+
+    /**
+     * 显示编辑资源表单页.
+     *
+     * @param  int  $id
+     * @return \think\Response
+     */
+    public function edit($id)
+    {
+        return view('admin@main/edit');
     }
 }

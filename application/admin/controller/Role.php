@@ -2,11 +2,11 @@
 
 namespace app\admin\controller;
 
-use think\Controller;
+use app\admin\controller\Base;
 use think\Db;
 use think\Request;
 
-class Role extends Controller
+class Role extends Base
 {
     /**
      * 显示资源列表
@@ -43,7 +43,7 @@ class Role extends Controller
      */
     public function create()
     {
-        //
+        return view('admin@main/edit');
     }
 
     /**
