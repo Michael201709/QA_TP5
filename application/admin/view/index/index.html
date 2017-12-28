@@ -124,47 +124,28 @@
 
 {load href="/static/admin/js/jquery-3.2.1.min.js"}
 <script>
-    // $(function () {
-    //     // 给登录按钮添加点击事件
-    //     $("#login").on('click', function (event) {
-    //         $.ajax({
-    //             // 提交方式：POST
-    //             type: "POST",
-    //             // 设置提交数据处理的脚本文件地址
-    //             url: "{:url('checkLogin')}",
-    //             // 将当前表单的数据序列化以后再提交
-    //             data: $("form").serialize(),
-    //             // 设置提交的数据类型为json
-    //             dataType: 'json',
-    //             // 成功的回调函数
-    //             success: function (data) {
-    //                 // 只有返回状态为1才允许登录成功
-    //                 if (data.status == 1) {
-    //                     // 先弹出提示框，提醒登录成功
-    //                     alert(data.message);
-    //                     window.location.href = "{:url('admin/main/index')}";
-    //                 } else {
-    //                     // 弹出错误信息
-    //                     alert(data.message);
-    //                 }
-    //             }
-    //         });
-    //     });
-    // });
-    // console.log($);
     $(function () {
+        // 给登录按钮添加点击事件
         $("#login").on('click', function (event) {
             $.ajax({
-                type: "POST", //提交方式为POST
-                url: "{:url('checkLogin')}",  // 设置提属性处理的脚本文件的地址
-                // url: '/admin/index/checkLogin',  // 设置提属性处理的脚本文件的地址
-                data: $("form").serialize(),  // 讲当前表单的数据序列化以后再提交
-                dataType: 'json',  //设置提交属性的类型为json
-                success: function (data) {  //只有返回标志为1, 才进行处理
-                    if (data.status == 1) { //只返回标志为1才允许跳转到后台
-                        alert(data.message); //先弹出提示框,提醒用户成功
-                        window.location.href = "{:url('indx/index')}";
-                    } else { //输出错误信息
+                // 提交方式：POST
+                type: "POST",
+                // 设置提交数据处理的脚本文件地址
+                // url: "{:url('checkLogin')}",
+                url: '/admin/index/checkLogin',
+                // 将当前表单的数据序列化以后再提交
+                data: $("form").serialize(),
+                // 设置提交的数据类型为json
+                dataType: 'json',
+                // 成功的回调函数
+                success: function (data) {
+                    // 只有返回状态为1才允许登录成功
+                    if (data.status == 1) {
+                        // 先弹出提示框，提醒登录成功
+                        alert(data.message);
+                        window.location.href = "{:url('admin/main/index')}";
+                    } else {
+                        // 弹出错误信息
                         alert(data.message);
                     }
                 }
