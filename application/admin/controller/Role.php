@@ -54,7 +54,6 @@ class Role extends Controller
      */
     public function save(Request $request)
     {
-        // dump($_POST);
         $p = $request->post();
 
         $data = [
@@ -78,7 +77,7 @@ class Role extends Controller
     /**
      * 显示指定的资源
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \think\Response
      */
     public function read($id)
@@ -89,7 +88,7 @@ class Role extends Controller
     /**
      * 显示编辑资源表单页.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \think\Response
      */
     public function edit($id)
@@ -100,8 +99,8 @@ class Role extends Controller
     /**
      * 保存更新的资源
      *
-     * @param  \think\Request $request
-     * @param  int $id
+     * @param  \think\Request  $request
+     * @param  int  $id
      * @return \think\Response
      */
     public function update(Request $request, $id)
@@ -112,7 +111,7 @@ class Role extends Controller
     /**
      * 删除指定资源
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \think\Response
      */
     public function delete($id)

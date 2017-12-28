@@ -12,8 +12,6 @@ class User extends Controller
 {
     public function index()
     {
-        // 原生代码
-        // $list = Db::query("select * from lamp_user");
 
         // DB的方法查询管理员，除了userpass这个字段
         // $list = Db::table('lamp_admin')->select();
@@ -85,6 +83,4 @@ class User extends Controller
             return $this->error('添加失败');
         }
     }
-
-
 }
