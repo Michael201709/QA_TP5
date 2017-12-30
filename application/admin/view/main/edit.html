@@ -47,7 +47,7 @@
         <label class="layui-form-label">角色</label>
         <div class="layui-input-block">
             {volist name="rnames" id="val"}
-            <input type="checkbox" name="" title="{$val.name}" checked="">
+            <input type="checkbox" name="" title="{$val.name}" {if in_array($val.name,$val)}checked{/if}>
             {/volist}
         </div>
     </div>
