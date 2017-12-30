@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <title>示例登陆页</title>
+    <style>
+        #win10-login {
+            background: url('/static/admin/img/wallpapers/login.jpg') no-repeat fixed;
+            width: 100%;
+            height: 100%;
+            background-size: 100% 100%;
+            position: fixed;
+            z-index: -1;
+            top: 0;
+            left: 0;
+        }
+
+        #win10-login-box {
+            width: 300px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        .win10-login-box-square {
+            width: 105px;
+            margin: 0 auto;
+            border-radius: 50%;
+            background-color: darkgray;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .win10-login-box-square::after {
+            content: "";
+            display: block;
+            padding-bottom: 100%;
+        }
+
+        .win10-login-box-square .content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        input {
+            width: 90%;
+            display: block;
+            border: 0;
+            margin: 0 auto;
+            line-height: 36px;
+            font-size: 20px;
+            padding: 0 1em;
+            border-radius: 5px;
+            margin-bottom: 11px;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .login-username, .login-password {
+            width: 91%;
+            font-size: 13px;
+            color: #999;
+        }
+
+        .login-password {
+            width: calc(91% - 54px);
+            -webkit-border-radius: 2px 0 0 2px;
+            -moz-border-radius: 2px 0 0 2px;
+            border-radius: 5px 0 0 5px;
+            margin: 0px;
+            float: left;
+        }
+
+        .login-submit {
+            margin: 0px;
+            float: left;
+            -webkit-border-radius: 0 5px 5px 0;
+            -moz-border-radius: 0 5px 5px 0;
+            border-radius: 0 5px 5px 0;
+            background-color: #009688;
+            width: 54px;
+            display: inline-block;
+            height: 36px;
+            line-height: 36px;
+            padding: 0 auto;
+            color: #fff;
+            white-space: nowrap;
+            text-align: center;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            opacity: .9;
+            filter: alpha(opacity=90);
+
+        }
+    </style>
+    <!--{load href="/static/admin/component/font-awesome-4.7.0/css/font-awesome.min.css""}-->
+</head>
+<body>
+<div id="win10-login">
+    <div style="height: 10%;min-height: 120px"></div>
+    <div id="win10-login-box">
+        <div class="win10-login-box-square">
+            <img src="/static/admin/img/avatar.jpg" class="content"/>
+        </div>
+        <p style="font-size: 24px;color: white;text-align: center">系统管理员</p>
+        <br>
+        <form target="_self" method="post">
+            <!--账户名-->
+            <input type="text" name="username" placeholder="请输入账户名" class="login-username"/>
+            <!--密码-->
+
+            <input type="text" placeholder="请输入密码" class="login-username" name="userpass">
+            <img id="verity_img" src="{:captcha_src()}">
+            <a href="javascript:refreshVerity();">看不清楚，换一张</a>
+            <input type="text" name="code" placeholder="请输入验证码" class="login-password"/><br>
+            <button type="submit" value="登录" id="login" class="login-submit">登录</button>
+        </form>
+    </div>
+</div>
+
+{load href="/static/admin/js/jquery-3.2.1.min.js"}
+<script>
+    $(function () {
+        // 给登录按钮添加点击事件
+        $("#login").on('click', function (event) {
+            $.ajax({
+                // 提交方式：POST
+                type: "POST",
+                // 设置提交数据处理的脚本文件地址
+                // url: "{:url('checkLogin')}",
+                url: '/admin/index/checkLogin',
+                // 将当前表单的数据序列化以后再提交
+                data: $("form").serialize(),
+                // 设置提交的数据类型为json
+                dataType: 'json',
+                // 成功的回调函数
+                success: function (data) {
+                    // 只有返回状态为1才允许登录成功
+                    if (data.status == 1) {
+                        // 先弹出提示框，提醒登录成功
+                        alert(data.message);
+                        window.location.href = "{:url('admin/main/index')}";
+                    } else {
+                        // 弹出错误信息
+                        alert(data.message);
+                    }
+                }
+            });
+        });
+    });
+
+    function refreshVerity() {
+        var ts = Date.parse(new Date()) / 1000;
+        $('#verity_img').attr('src', '/captcha?id=' + ts);
+    }
+</script>
+</body>
+</html>
