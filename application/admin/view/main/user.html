@@ -21,7 +21,7 @@
             <div class="demoTable">
                 搜索信息：
                 <div class="layui-inline">
-                    <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+                    <input class="layui-input" name="id" id="demoReloada" autocomplete="off">
                 </div>
                 <button class="layui-btn" data-type="reload">搜索</button>
             </div>
@@ -33,56 +33,86 @@
             </div>
 
             <!--表格-->
-            <table class="layui-table" lay-data="{
-                width: 892,
-                height: 332,
-                url:{:url('admin/user/index')},
-                page: true,
-                id:'idTest'
-            }" lay-filter="demo">
+            <table class="layui-table" lay-filter="demo" style="text-align: center">
                 <thead>
                 <tr>
-                    <th lay-data="{type:'checkbox', fixed: 'left', align:'center'}"></th>
-                    <th lay-data="{field:'id', width:80, align:'center', sort: true, fixed: true}">ID</th>
-                    <th lay-data="{field:'username', width:160, align:'center'}">账户名称</th>
-                    <th lay-data="{field:'name', width:160, align:'center'}">真实姓名</th>
-                    <th lay-data="{field:'sex', width:80, align:'center', sort: true}">性别</th>
-                    <th lay-data="{field:'rname', width:200, align:'center'}">所属角色</th>
-                    <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}">操作</th>
+                    <th align="center" lay-data="{field:'id', width:80, align:'center', sort: true, fixed: true}">ID
+                    </th>
+                    <th align="center" lay-data="{field:'username', width:160, align:'center'}">账户名称</th>
+                    <th align="center" lay-data="{field:'name', width:160, align:'center'}">真实姓名</th>
+                    <th align="center" lay-data="{field:'sex', width:80, align:'center', sort: true}">性别</th>
+                    <th align="center" lay-data="{field:'rname', width:200, align:'center'}">所属角色</th>
+                    <th align="center" lay-data="{fixed: 'right', width:178, align:'center' ">操作</th>
                 </tr>
                 </thead>
                 <tbody>
                 {foreach $list as $v}
                 <tr>
-                    <td></td>
                     <td>{$v.id}</td>
                     <td>{$v.username}</td>
                     <td>{$v.name}</td>
                     <td>
                         {switch $v.sex}
-                            {case value="0"} 女 {/case}
-                            {case value="1"} 男 {/case}
-                            {case value="2"} 保密 {/case}
-                            {default /} 未知生物
+                        {case value="0"} 女 {/case}
+                        {case value="1"} 男 {/case}
+                        {case value="2"} 保密 {/case}
+                        {default /} 未知生物
                         {/switch}
                     </td>
 
                     <td>
-                    {foreach $v.rname as $value}
-                    <span>{$value}</span>
-                    {/foreach}
+                        {foreach $v.rname as $value}
+                        <span>{$value}</span>
+                        {/foreach}
                     </td>
                     <td>
-                        <script type="text/html" id="barDemo">
-                            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-                            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-                            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-                        </script>
+                        <!--<button class="layui-btn layui-btn-xs">查看</button>-->
+                        <a href="{:url('admin/user/edit',['id'=>$v['id']])}" class="layui-btn layui-btn-xs">编辑查看</a>
+                        <a href="{:url('/admin/user/delete',['id'=>$v['id']])}" class="layui-btn layui-btn-danger layui-btn-xs del-btn">删除</a>
+                        <!--<button class="layui-btn layui-btn-danger layui-btn-xs del-btn" data-id="{$v.id}">删除</button>-->
                     </td>
+                    <!--<td>-->
+                    <!--<script type="text/html" id="barDemo">-->
+                    <!--<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>-->
+                    <!--<a class="" lay-event="edit">编辑</a>-->
+                    <!--<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>-->
+                    <!--</script>-->
+                    <!--</td>-->
                 </tr>
                 {/foreach}
                 </tbody>
             </table>
+            <!--{js href="/static/admin/js/jquery-3.2.1.min.js"}-->
+            <!--<script>-->
+            <!--$(function () {-->
+            <!--// 触发删除用户-->
+            <!--$('.del-btn').click(function () {-->
+            <!--var ac_id = $(this).attr('data-id');-->
+            <!--console.log('删除操作的ID为：' + ac_id);-->
+            <!--if (confirm('您确定要 【删除】该用户吗？')) {-->
+            <!--var obj = $(this).parents('tr');-->
+            <!--console.log(obj);-->
+            <!--delAjax(ac_id, obj);-->
+            <!--}-->
+            <!--});-->
+            <!--});-->
+
+            <!--function delAjax(id, obj) {-->
+            <!--$.ajax({-->
+            <!--type: 'get',-->
+            <!--url: '/admin/user/delete/' + id,-->
+            <!--dataType: 'json',-->
+            <!--success: function (data) {-->
+            <!--console.log(data);-->
+            <!--},-->
+            <!--error: function (data) {-->
+            <!--alert('删除失败！');-->
+            <!--console.log(data);-->
+            <!--}-->
+            <!--});-->
+            <!--}-->
+
+            <!--</script>-->
             <div id="page"></div>
         </div>
         <!--end 管理员列表-->
@@ -190,6 +220,7 @@
                         {default /} 未知生物
                         {/switch}
                     </td>
+
                     <td></td>
                     <td></td>
                 </tr>
@@ -210,43 +241,6 @@
 <script>
     layui.use('element', function () {
         var $ = layui.jquery, element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
-
-        //触发事件
-        var active = {
-            tabAdd: function () {
-                //新增一个Tab项
-                element.tabAdd('demo', {
-                    title: '新选项' + (Math.random() * 100 | 0) //用于演示
-                    , content: '内容' + (Math.random() * 100 | 0)
-                    , id: new Date().getTime() //实际使用一般是规定好的id，这里以时间戳模拟下
-                })
-            }
-            , tabDelete: function (othis) {
-                //删除指定Tab项
-                element.tabDelete('demo', '44'); //删除：“商品管理”
-
-
-                othis.addClass('layui-btn-disabled');
-            }
-            , tabChange: function () {
-                //切换到指定Tab项
-                element.tabChange('demo', '22'); //切换到：用户管理
-            }
-        };
-
-        $('.site-demo-active').on('click', function () {
-            var othis = $(this), type = othis.data('type');
-            active[type] ? active[type].call(this, othis) : '';
-        });
-
-        //Hash地址的定位
-        var layid = location.hash.replace(/^#test=/, '');
-        element.tabChange('test', layid);
-
-        element.on('tab(test)', function (elem) {
-            location.hash = 'test=' + $(this).attr('lay-id');
-        });
-
     });
 
     layui.use('table', function () {
@@ -262,12 +256,12 @@
             if (obj.event === 'detail') {
                 layer.open({
                     type: 2 //Page层类型
-                    ,area: ['500px', '300px']
-                    ,title: '{$title}'
-                    ,shade: 0.6 //遮罩透明度
-                    ,maxmin: true //允许全屏最小化
-                    ,anim: 1 //0-6的动画形式，-1不开启
-                    ,content: '{:url(\'/admin/user/edit\')}'
+                    , area: ['500px', '300px']
+                    , title: '{$title}'
+                    , shade: 0.6 //遮罩透明度
+                    , maxmin: true //允许全屏最小化
+                    , anim: 1 //0-6的动画形式，-1不开启
+                    , content: '{:url(\'/admin/user/edit\')}'
                 });
             } else if (obj.event === 'del') {
                 layer.confirm('真的删除行么', function (index) {
@@ -361,7 +355,6 @@
             })
             return false;
         });
-
     });
 </script>
 </body>

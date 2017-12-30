@@ -2,7 +2,6 @@
 
 namespace app\admin\controller;
 
-
 use app\admin\controller\Base;
 use think\Db;
 use think\Request;
@@ -26,8 +25,8 @@ class User extends Base
         foreach ($admins as $v) {
             // 查询"用户_角色表",当user_role中对应user中id时，获取roleids，可能为一个数组
             $rids = Db('user_role')->field('rid')->where(array(
-                                                    'uid' => $v['id']))
-                                                 ->select();
+                'uid' => $v['id']))
+                ->select();
             // dump($rids);
             // die;
 
@@ -40,9 +39,9 @@ class User extends Base
                 // $rnames = Db('role')->field('name')->where(['id' => $v['rid'], 'status' => 1])->select();
 
                 $rnames[] = Db('role')->where(array(
-                                        'id' => array('eq', $value['rid']),
-                                        'status' => array('eq', 1)))
-                                      ->value('name');
+                    'id' => array('eq', $value['rid']),
+                    'status' => array('eq', 1)))
+                    ->value('name');
 
             }
             // dump($rnames);
@@ -86,11 +85,99 @@ class User extends Base
     /**
      * 显示编辑资源表单页.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \think\Response
      */
     public function edit($id)
     {
-        return view('admin@main/edit');
+        // 查询该用户所拥有的所有信息；用户表、角色表联查
+
+        // $data = Db::view('admin', 'username,name,sex')
+        //     ->view('user_role', 'rid,uid', 'uid=user.id')
+        //     ->view('role', 'name,status', 'role.uid=rid');
+        //
+        // dump($data);
+        // die();
+
+        // $admins = Db('admin')->field('userpass', true)->where(array('id' => $id))->select();
+        // foreach ($admins as $v) {
+        //     $rids = Db('user_role')->field('rid')->where(array(
+        //         'uid' => $v['id']))
+        //         ->select();
+        //     $rnames = array();
+        //     foreach ($rids as $value) {
+        //         $rnames[] = Db('role')->where(array(
+        //             'id' => array('eq', $value['rid'])))
+        //             ->value('name');
+        //     }
+        //     $v['rname'] = $rnames;
+        //     $list[] = $v;
+        // }
+        // dump($list);
+        // die();
+
+        $admins = Db('admin')->field('userpass', true)->where(array('id' => $id))->select();
+
+        // foreach ($admins as $v) {
+        //     for ($i = 0; $i < $arr; $i++) {
+        //
+        //     }
+        // }
+        // dump($list);
+        $rnames = Db('role')->field('name')->select();
+
+        //
+        // dump($admins);
+
+        // dump($rnames);
+        // die();
+
+        return view('admin@main/edit', [
+            'title' => '用户编辑和查看',
+            'admins' => $admins,
+            'rnames' => $rnames
+        ]);
+
+        // return '编辑指定ID：' . $id;
+    }
+
+    /**
+     * 保存更新的资源
+     *
+     * @param  \think\Request $request
+     * @param  int $id
+     * @return \think\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+        $info = $request->put();
+
+        $data = [
+            'username' => $info['username'],
+            'name' => $info['name'],
+            'sex' => $info['sex'],
+        ];
+
+        // 执行编辑更新
+        $result = Db::name('admin')->where('id',$id)->update($data);
+
+        // 判断
+        if ($result) {
+            return $this->success('编辑成功', url('admin/user/index'));
+        } else {
+            return $this->error('编辑失败');
+        }
+    }
+
+    public function delete($id)
+    {
+        $data = Db('admin')->where('id', $id)->delete($id);
+
+        if ($data) {
+            return $this->success('删除成功(((((((((((っ･ω･)っ Σ(σ｀･ω･´)σ 起飞！', url('admin/user/index'));
+        } else {
+            return $this->error('删除失败(o＞ω＜o)雅蠛蝶');
+        }
     }
 }
