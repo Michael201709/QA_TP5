@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{$title}</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    {load href="/static/admin/component/layui-v2.2.45/css/layui.css"}
+</head>
+<body>
+<h1>{$title}</h1 style="margin-top: 100px;">
+<hr></hr>
+<!--start 查看编辑账号-->
+{volist name="admins" id="v"}
+<form class="layui-form" method="post" action="{:url('admin/user/update', ['id'=>$v['id']])}"
+      style="margin-top: 50px;">
+    <input type="hidden" name="_method" value="PUT">
+    <!--<input type="hidden" name="_method" value="{$v.id}">-->
+    <!--账号名-->
+    <!--根据点击编辑所传的ID,获取该用户信息，遍历到页面上-->
+    <div class="layui-form-item">
+        <label class="layui-form-label">账号名称</label>
+        <div class="layui-input-inline">
+            <input type="text" name="username" lay-verify="required" value="{$v.username}" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <!--真实姓名-->
+    <div class="layui-form-item">
+        <label class="layui-form-label">真实姓名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="name" lay-verify="required" value="{$v.name}" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">性别</label>
+        <div class="layui-input-block">
+            <input type="radio" name="sex" value="1" title="男" {if condition="$v.sex eq '1'" }checked{/if}>
+            <input type="radio" name="sex" value="0" title="女" {if condition="$v.sex eq '0'" }checked{/if}>
+            <input type="radio" name="sex" value="2" title="保密" {if condition="$v.sex eq '2'" }checked{/if}>
+        </div>
+    </div>
+    {/volist}
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色</label>
+        <div class="layui-input-block">
+            {volist name="rnames" id="val"}
+            <input type="checkbox" name="" title="{$val.name}" {if in_array($val.name,$val)}checked{/if}>
+            {/volist}
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn">编辑</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+{js href="/static/admin/component/layui-v2.2.45/layui.js"}
+<script>
+    layui.use(['form', 'layedit'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit;
+        //创建一个编辑器
+        var editIndex = layedit.build('LAY_demo_editor');
+        //自定义验证规则
+        form.verify({
+            title: function (value) {
+                if (value.length < 5) {
+                    return '标题至少得5个字符啊';
+                }
+            }
+            , pass: [/(.+){6,12}$/, '密码必须6到12位']
+            , content: function (value) {
+                layedit.sync(editIndex);
+            }
+        });
+        //监听指定开关
+        form.on('switch(switchTest)', function (data) {
+            layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
+                offset: '6px'
+            });
+            layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
+        });
+        //监听提交
+        form.on('submit(demo1)', function (data) {
+            layer.alert(JSON.stringify(data.field), {
+                title: '最终的提交信息'
+            })
+            return false;
+        });
+    });
+</script>
+</body>
+</html>
