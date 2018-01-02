@@ -32,6 +32,7 @@ class User extends Base
                     'status' => array('eq', 1)))
                     ->value('name');
             }
+
             // 将查询到的角色名称[]塞入用户表中,组成一个新的表。
             $v['rname'] = $rnames;
             $list[] = $v;

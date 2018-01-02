@@ -9,14 +9,11 @@
     {load href="/static/admin/component/layui-v2.2.45/css/layui.css"}
 </head>
 <body>
-<h1>{$title}</h1 style="margin-top: 100px;">
-<hr></hr>
 <!--start 查看编辑账号-->
 {volist name="admins" id="v"}
 <form class="layui-form" method="post" action="{:url('admin/user/update', ['id'=>$v['id']])}"
       style="margin-top: 50px;">
     <input type="hidden" name="_method" value="PUT">
-    <!--<input type="hidden" name="_method" value="{$v.id}">-->
     <!--账号名-->
     <!--根据点击编辑所传的ID,获取该用户信息，遍历到页面上-->
     <div class="layui-form-item">
@@ -42,14 +39,13 @@
             <input type="radio" name="sex" value="2" title="保密" {if condition="$v.sex eq '2'" }checked{/if}>
         </div>
     </div>
-    {/volist}
     <div class="layui-form-item">
         <label class="layui-form-label">角色</label>
-        <div class="layui-input-block">
-            {volist name="rnames" id="val"}
-            <input type="checkbox" name="" title="{$val.name}" {if in_array($val.name,$val)}checked{/if}>
-            {/volist}
+        {volist name="rnames" id="val"}
+        <div class="layui-input-block" id="ischeck">
+            <input type="checkbox" name="rolename" title="{$val.name}" {if in_array($val.name,$val)}checked{/if}>
         </div>
+        {/volist}
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
@@ -58,6 +54,8 @@
         </div>
     </div>
 </form>
+{/volist}
+{js href="/static/admin/js/jquery-3.2.1.js"}
 {js href="/static/admin/component/layui-v2.2.45/layui.js"}
 <script>
     layui.use(['form', 'layedit'], function () {

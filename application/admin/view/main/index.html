@@ -24,7 +24,6 @@
             font-size: 16px;
         }
     </style>
-
     <script>
         Win10.onReady(function () {
 
@@ -72,76 +71,73 @@
 
         }
     </script>
-
 </head>
 <body>
 <div id="win10">
     <div class="desktop">
         <div id="win10-shortcuts" class="shortcuts-hidden">
+
             <div class="shortcut" onclick="Win10.openUrl('#','<img class=\'icon\' src=\'/static/admin/img/icon/win10.png\'/>我的系统')">
                 <img class="icon" src="/static/admin/img/icon/win10.png"/>
                 <div class="title">我的系统</div>
             </div>
 
             <div class="shortcut win10-open-window" data-url="#">
-                <i class="icon fa fa-fw fa-bank red"></i>
+                <i class="icon fa fa-home red"></i>
                 <div class="title">社区首页</div>
             </div>
 
-            <div class="shortcut" onclick='Win10.openUrl("{:url('admin/user/index')}","<i class=\"fa fa-user icon black-green\"></i>用户中心")'><i class="fa fa-user icon black-green"></i>
-            <div class="title">用户管理</div>
+            <div class="shortcut" onclick='Win10.openUrl("{:url('admin/user/index')}","<i class=\"fa fa-user icon black-green\"></i>用户表")'>
+            <i class="fa fa-user icon black-green"></i>
+            <div class="title">用户中心</div>
         </div>
 
-        <div class="shortcut" onclick='Win10.openUrl("#","<i class=\"fa fa-gears icon purple\"></i>管理员列表")'>
-        <i class="fa fa-gears  icon purple"></i>
-        <div class="title">系统设置</div>
-    </div>
+        <div class="shortcut" onclick='Win10.openUrl("#","<i class=\"fa fa-group icon purple\"></i>管理员列表")'>
+            <i class="fa fa-group  icon purple"></i>
+            <div class="title">管理中心</div>
+        </div>
 
-    <div class="shortcut" onclick="Win10.openUrl('{:url('admin/power/index')}','<img class=\'icon\' src=\'/static/admin/img/icon/kyzg.png\'/>权限列表')">
-        <img class="icon" src="/static/admin/img/icon/kyzg.png"/>
+        <div class="shortcut" onclick='Win10.openUrl("{:url('admin/power/index')}","<i class=\"fa fa-slack icon black\"></i>权限管理")'>
+        <i class="fa fa-slack icon black"></i>
         <div class="title">权限管理</div>
     </div>
 
-    <div class="shortcut" onclick="Win10.openUrl('{:url('admin/role/index')}','<img class=\'icon\' src=\'/static/admin/img/icon/kyzg.png\'/>角色列表')">
-        <img class="icon" src="/static/admin/img/icon/github.png"/>
+    <div class="shortcut" onclick='Win10.openUrl("{:url('admin/role/index')}","<i class=\"fa fa-sitemap icon purple\"></i>角色列表")'>
+        <i class="fa fa-sitemap icon purple"></i>
         <div class="title">角色管理</div>
     </div>
 
-    <div class="shortcut"
-         onclick="Win10.openUrl('#','<img class=\'icon\' src=\'/static/admin/img/icon/doc.png\'/>文章列表')">
+    <div class="shortcut" onclick="Win10.openUrl('#','<img class=\'icon\' src=\'/static/admin/img/icon/doc.png\'/>文章列表')">
         <img class="icon" src="/static/admin/img/icon/doc.png"/>
         <div class="title">文章管理</div>
     </div>
 
-    <div class="shortcut"
-         onclick="Win10.openUrl('#','<img class=\'icon\' src=\'/static/admin/img/icon/blogger.png\'/>话题列表')">
-        <img class="icon" src="/static/admin/img/icon/blogger.png"/>
-        <div class="title">话题管理</div>
+    <div class="shortcut" onclick='Win10.openUrl("{:url('admin/role/index')}","<i class=\"fa fa-share-alt icon orange\"></i>话题列表")'>
+    <i class="fa fa-share-alt icon orange"></i>
+    <div class="title">话题管理</div>
     </div>
 
-    <div class="shortcut"
-         onclick="Win10.openUrl('#','<img class=\'icon\' src=\'/static/admin/img/icon/kyzg.png\'/>问题列表')">
-        <img class="icon" src="/static/admin/img/icon/download.png"/>
-        <div class="title">问题管理</div>
+    <div class="shortcut" onclick='Win10.openUrl("{:url('admin/role/index')}","<i class=\"fa fa-lightbulb-o icon purple\"></i>问题列表")'><i class="fa fa-lightbulb-o icon purple"></i>
+        <div class="title">问题列表</div>
     </div>
 
-    <div class="shortcut"
-         onclick="Win10.openUrl('#','<img class=\'icon\' src=\'/static/admin/img/icon/kyzg.png\'/>收藏列表')">
-        <i class="icon fa fa-fw fa-star black-green"></i>
-        <div class="title">收藏管理</div>
-    </div>
-
+<div class="shortcut" onclick='Win10.openUrl("{:url('admin/role/index')}","<i class=\"fa fa-star icon green\"></i>话题列表")'>
+<i class="fa fa-star icon green"></i>
+<div class="title">收藏管理</div>
 </div>
 <div id="win10-desktop-scene"></div>
+
+
 </div>
+</div>
+
+
 <div id="win10-menu" class="hidden">
     <div class="list win10-menu-hidden animated animated-slideOutLeft">
         <div class="item"><i class="red icon fa fa-wrench fa-fw"></i><span>API测试</span></div>
         <div class="sub-item" onclick="Win10.openUrl('/static/admin/child.html','子页')">父子页沟通</div>
         <div class="sub-item" onclick="Win10.commandCenterOpen()">打开消息中心</div>
-        <div class="sub-item"
-             onclick="Win10.newMsg('API测试','通过API可以发送消息至消息中心，自定义标题与内容(点击我试试)',function() {alert('click')})">发送带回调的消息
-        </div>
+        <div class="sub-item" onclick="Win10.newMsg('API测试','通过API可以发送消息至消息中心，自定义标题与内容(点击我试试)',function() {alert('click')})">发送带回调的消息</div>
         <div class="sub-item" onclick="Win10.menuClose()">关闭菜单</div>
         <div class="item"><i class="blue icon fa fa-gavel fa-fw"></i>辅助工具</div>
         <div class="sub-item" onclick="Win10.openUrl('win10ui.yuri2.cn/src/tools/builder-shortcut.html','图标代码生成器')">
@@ -263,7 +259,7 @@
     <div id="win10_btn_group_middle" class="btn_group"></div>
     <div id="win10_btn_group_right" class="btn_group">
         <div class="btn" id="win10_btn_time">
-            <!--0:00<br/>-->
+            <!--0:00:00 <br/>-->
             <!--1993/8/13-->
         </div>
         <div class="btn" id="win10_btn_command"><span id="win10-msg-nof" class="fa fa-comment-o"></span></div>
